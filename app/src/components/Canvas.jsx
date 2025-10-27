@@ -1,5 +1,5 @@
 import React, { useRef, useEffect } from 'react';
-import { fabric } from 'fabric';
+import * as fabric from 'fabric';
 
 const Canvas = () => {
   const canvasEl = useRef(null);
@@ -11,7 +11,7 @@ const Canvas = () => {
       backgroundColor: '#f0f0f0',
     });
 
-    const text = new fabric.Text('hello world', {
+    const text = new fabric.Text('hello world!', {
       left: 100,
       top: 100,
     });
