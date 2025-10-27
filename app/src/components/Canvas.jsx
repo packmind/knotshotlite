@@ -11,6 +11,12 @@ const Canvas = () => {
       backgroundColor: '#f0f0f0',
     });
 
+    const text = new fabric.Text('hello world', {
+      left: 100,
+      top: 100,
+    });
+    canvas.add(text);
+
     return () => {
       canvas.dispose();
     };
