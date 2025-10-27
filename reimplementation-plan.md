@@ -1,54 +1,76 @@
-# Re-implementation Plan for Knotshot
+# Knotshot Re-implementation Plan
 
-## Overall Assessment: Moderately Difficult
+This document summarizes the findings from the reverse engineering of the Knotshot macrame web application. It is intended to be a guide for the re-implementation of the application.
 
-This document outlines a plan for re-implementing the core macrame design UI as a simpler, single-user, in-browser application. The project is considered feasible but moderately difficult due to the need to reverse-engineer minified source code.
+## Core Technologies
 
-## Favorable Factors
+*   **Frontend Framework:** The application is built with **React**, as evidenced by the use of JSX syntax and React components (e.g., `React.createElement`, `Component`).
+*   **Canvas Library:** The interactive knot grid is rendered using the **`fabric.js`** library. This is clear from the numerous calls to `new fabric.Canvas`, `fabric.Path`, `fabric.Group`, etc.
 
-These are the aspects of the existing bundle that will significantly aid in the re-implementation effort:
+## UI Components
 
-*   **Standard Core Technology:** The core design tool is built on **Fabric.js**, a popular and well-documented open-source canvas library. This eliminates the need to re-implement low-level rendering and object manipulation.
-*   **Available SVG Assets:** The SVG images for knots and other design elements are directly available in the `programs/web.browser/app/images/` directory and can be reused.
-*   **Standard Data Format:** The application saves designs in the standard **Fabric.js JSON format**. This means existing design data can be easily imported and used in the new application.
+The application is composed of several UI components, including:
 
-## Unfavorable Factors
+*   **Pages:** `PageLogin`, `PageRegister`, `PageHome`, `PagePublicCanvas`, `PageWorkspace`, etc.
+*   **Forms:** `FieldTextInput`, `FieldTextareaInput`, `FieldSelectInput`, `FieldCheckbox`.
+*   **Modals:** `BlockTileColorUpdateModal`, and other modals for user interaction.
+*   **Partials:** `PartialLoadingDots`, `PartialColorPicker`.
 
-These are the primary challenges that contribute to the difficulty of the project:
+## Key Components and Logic
 
-*   **Minified JavaScript:** The client-side JavaScript bundle is minified, meaning the original source code, including variable names, comments, and structure, is lost. This makes the code very difficult to read and understand.
-*   **Reverse-Engineering of Core Logic:** The unique application logic that governs how knots are placed, connected, and customized is obscured within the minified code. This logic must be manually traced and re-implemented.
+### `BlockPublicCanvas.jsx`
 
-## Summary of Current Findings
+This is the main React component responsible for rendering and managing the macrame pattern canvas.
 
-Based on the analysis of the beautified JavaScript bundle, here's what has been learned:
+*   **Source:** The logic for this component is found within the beautified JavaScript file: `archaeology/bundle/programs/web.browser/8f9b6d3e5b52f595a15efa7ce9522e1772897f83.beautified.js`.
 
-*   **Core Technologies:** The original application is a Meteor.js application, using React for its UI components and Fabric.js for the core design tool. Data is managed via MongoDB.
-*   **Key Components Identified:**
-    *   **`BlockAdminViewCanvas` (likely `BlockKnotshot.jsx`):** A React component responsible for rendering a Fabric.js canvas. It takes `canvasOption`, `tileInfo`, and `_id` as props, initializes a `fabric.Canvas`, and loads data using `loadFromJSON` with `tileInfo`.
-    *   **Main Design Component (likely `Knotshot.jsx`):** Another React component that renders a Fabric.js canvas (`id="knotshot-stage"`). It manages state related to editing, selected tiles, colors, and zoom, and appears to be the central component for user interaction.
-*   **Data Structure (`pattern` object):**
-    *   The application uses a `pattern` object to store design data, managed by `MODEL.patterns` (a `Mongo.Collection`).
-    *   A `pattern` object has fields like `_id`, `createdBy`, `createdAt`, `patternName`, `previewImage`, `updatedAt`, `rowCount`, `columnCount`, `palatte`, `tiles`, and `topTiles`.
-    *   The `tiles` field (an `Object` defaulting to an empty array) is highly likely to contain the Fabric.js JSON data that describes the macrame pattern. The `BlockAdminViewCanvas` component uses `this.props.pattern.objects`, suggesting the Fabric.js JSON is stored as an `objects` property within the `tiles` field, or `tiles` itself is the array of Fabric.js objects.
-*   **SVG Assets:** Existing SVG images for knots and other design elements are available in `archaeology/bundle/programs/web.browser/app/images/`.
+### Knot Rendering
 
-## Recommended Approach
+The core of the application is the rendering of individual knots on the canvas.
 
-The following steps outline a recommended path for re-implementing the application:
+*   **`getKnotTile` function:** This function, located in the `UTILS.workspace` object, is responsible for creating a single knot tile. It constructs a `fabric.Group` object for each knot.
+    *   **Source Reference:** The definition of this function can be found starting around line `245955` in `archaeology/bundle/programs/web.browser/8f9b6d3e5b52f595a15efa7ce9522e1772897f83.beautified.js`.
+*   **`KnotPaths` Constant:** This constant holds the raw SVG path data for each type of knot. The `getKnotTile` function retrieves the appropriate path data from this constant based on the `knotType`.
+    *   **Source Reference:** The `KnotPaths` constant is defined within the `client/components/canvas/knots.js` module, which is bundled in the beautified JavaScript file. The definition can be found by searching for `KnotPaths:()=>i` in the beautified file.
 
-1.  **Beautify the Source Code:** Use a JavaScript "beautifier" on the main client-side JavaScript file (`programs/web.browser/8f9b6d3e5b52f595a15efa7ce9522e1772897f83.js`) to restore basic code formatting. (Completed)
-2.  **Isolate Core Logic:** Focus analysis on the beautified code that corresponds to the React components responsible for the design tool, such as `Knotshot.jsx` and `BlockKnotshot.jsx`. (In progress, initial components identified)
-3.  **Analyze Data Structures:** Study the JSON structure of existing saved designs to understand the properties and objects that constitute a macrame pattern. (Initial analysis of `pattern` object structure completed)
-4.  **Set up New React Project:**
-    *   Scaffold a new, simple React project (e.g., using `create-react-app`).
-    *   Integrate Fabric.js into this new React environment.
-    *   Use Jules for asynchronous tasks within the React application.
-5.  **Incremental Re-implementation (within React project):**
-    *   Use the existing SVG assets to create the basic design elements within Fabric.js.
-    *   Gradually re-implement the user interaction logic by translating the logic from the beautified (but still obfuscated) source code.
-    *   Build a new, minimal user interface (buttons, color palettes, etc.) around the Fabric.js canvas.
+### Knot Structure and Data
 
-## Conclusion
+*   **Knot Types:** The application defines several knot types, including `LF` (Left Facing), `RF` (Right Facing), and `TOP`. These are identified by numeric constants.
+*   **SVG Path Data:** The visual representation of each knot is composed of several SVG `<path>` elements. Each path has a unique ID (e.g., `a-in`, `c-out`), which is used to control its color. The original SVG files (`knot-lf.svg`, `knot-rf.svg`, `knot-top.svg`) confirm this structure.
+*   **Data Model:** The entire macrame pattern is stored in a `pattern` object. This object contains `tiles` and `topTiles` arrays, which represent the grid. Each element in these arrays is an object containing:
+    *   `knotType`: The type of knot (e.g., `1` for `LF`).
+    *   `colors`: An object mapping path IDs to color IDs from a palette.
 
-Re-implementing the core design tool is a viable project, largely thanks to the use of standard technologies and the availability of key assets. However, the primary effort will be a time-consuming reverse-engineering task to extract the application's essential logic from the minified code base. This will require an experienced JavaScript developer.
+### Color Logic
+
+*   **Palette:** The application uses a `palatte` array to store the available colors.
+*   **Color Propagation:** The `tileColorPropagate` and `topTileColorPropogate` objects define the rules for how colors should flow from one knot to its neighbors. This is a critical piece of the application's logic.
+    *   **Source Reference:** These objects are defined in the `knots.js` module.
+
+## Extracted Files
+
+The following files have been extracted from the `archaeology/` directory into the `extract/` directory for easy reference:
+
+- `extract/main.js`: The main entry point of the application.
+- `extract/star.json`: Contains metadata about the project, including the Meteor version (`METEOR@2.6.1`), Node.js version (`14.18.3`), and npm version (`6.14.15`).
+- `extract/programs/server/program.json`: Contains a list of all the server-side packages used by the application.
+- `extract/programs/web.browser/program.json`: Contains a manifest of all the client-side assets, including JavaScript, CSS, fonts, and images.
+- `extract/programs/web.browser/8f9b6d3e5b52f595a15efa7ce9522e1772897f83.beautified.js`: The beautified main application logic.
+- `extract/programs/web.browser/app/images/knot-lf.svg`: The SVG file for the left-facing knot.
+- `extract/programs/web.browser/app/images/knot-rf.svg`: The SVG file for the right-facing knot.
+- `extract/programs/web.browser/app/images/knot-top.svg`: The SVG file for the top knot.
+
+### Server-side Packages
+
+The `extract/programs/server/program.json` file lists all the server-side packages used by the application. This file can be referred to for a complete list of dependencies.
+
+## Next Steps
+
+Based on these findings, the implementation plan is as follows:
+
+1.  **Scaffold a new React application.**
+2.  **Install `fabric.js`** as a dependency.
+3.  **Create a main canvas component** (similar to `BlockPublicCanvas.jsx`).
+4.  **Re-create the `KnotPaths` constant** by extracting the path data from the beautified JavaScript or the original SVG files.
+5.  **Implement the `getKnotTile` function** to render knots on the canvas using the `KnotPaths` data.
+6.  **Implement the color palette and the color propagation logic** based on the `tileColorPropagate` and `topTileColorPropogate` rules.
