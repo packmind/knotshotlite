@@ -1,0 +1,238 @@
+{
+  "format": "web-program-pre1",
+  "manifest": [
+    {
+      "path": "8f9b6d3e5b52f595a15efa7ce9522e1772897f83.js",
+      "where": "client",
+      "type": "js",
+      "cacheable": true,
+      "url": "/8f9b6d3e5b52f595a15efa7ce9522e1772897f83.js?meteor_js_resource=true",
+      "replaceable": false,
+      "size": 4620989,
+      "hash": "8f9b6d3e5b52f595a15efa7ce9522e1772897f83",
+      "sri": "fLNUIZA5C0lsVNbIiOj353FrA8jBqei4uO/2aTMWKPuH26CtkJ8GKdaG2oRuotUm3P/D/4ZsTq3aqOcI0R0z3w=="
+    },
+    {
+      "path": "8f9b6d3e5b52f595a15efa7ce9522e1772897f83.stats.json",
+      "where": "client",
+      "type": "json",
+      "cacheable": true,
+      "url": "/8f9b6d3e5b52f595a15efa7ce9522e1772897f83.stats.json?meteor_js_resource=true",
+      "size": 93344,
+      "hash": "740e45fbb4bf8a06c52f074add7cb589cc9fa33c",
+      "sri": "i1CKzkr9FqT3/krb3E560j5uGC0q0EoESprLjti22RVdrnVcUnelZIVoDzfT4ZRZf2vHoZnKL6TlePxXW4bnLw=="
+    },
+    {
+      "path": "25e0208692ccc56ac02583cc7b0008feb0287377.css",
+      "where": "client",
+      "type": "css",
+      "cacheable": true,
+      "url": "/25e0208692ccc56ac02583cc7b0008feb0287377.css?meteor_css_resource=true",
+      "size": 47333,
+      "hash": "25e0208692ccc56ac02583cc7b0008feb0287377",
+      "sri": "wZg6tCmyOKPJs1GfyAQp9CKwMRyNUnHnZECvW+PjYMJ7/8GgJlyVszfTxOciXJCYdeKPDT/bUgisf0PkcPQ1aA=="
+    },
+    {
+      "path": "app/fonts/icomoon.eot",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/icomoon.eot",
+      "size": 4052,
+      "hash": "497776f6a579d5e875a60c04b4d5f6fb9b26660f",
+      "sri": null
+    },
+    {
+      "path": "app/fonts/icomoon.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/icomoon.svg",
+      "size": 10879,
+      "hash": "5e83593d011f03c9045bec1b037a32a6dcc91421",
+      "sri": null
+    },
+    {
+      "path": "app/fonts/icomoon.ttf",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/icomoon.ttf",
+      "size": 3888,
+      "hash": "9f9eca93d7e67ee54ab55fbcba978f43f156448e",
+      "sri": null
+    },
+    {
+      "path": "app/fonts/icomoon.woff",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/fonts/icomoon.woff",
+      "size": 3964,
+      "hash": "0da584179d8ed770eb3d4a551e61e8912d6b6f06",
+      "sri": null
+    },
+    {
+      "path": "app/images/bg-desktop.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/bg-desktop.png",
+      "size": 369823,
+      "hash": "464141bdd1f476a81dc1287970a013df5a9fb65d",
+      "sri": null
+    },
+    {
+      "path": "app/images/bg-desktop.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/bg-desktop.svg",
+      "size": 547476,
+      "hash": "1ce371461c45dee86fcbd966d4f228f7e21fd73f",
+      "sri": null
+    },
+    {
+      "path": "app/images/bg-mobile.png",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/bg-mobile.png",
+      "size": 49583,
+      "hash": "fd8d1137779f1322e8ea6dda158a85bfc3ffeb3c",
+      "sri": null
+    },
+    {
+      "path": "app/images/bg-mobile.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/bg-mobile.svg",
+      "size": 220910,
+      "hash": "8b4136f8ac946493454e389f78804f5921f7bc83",
+      "sri": null
+    },
+    {
+      "path": "app/images/emblem-knotshot.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/emblem-knotshot.svg",
+      "size": 1208,
+      "hash": "22a96ade13f0365a71419fec6b48a605464dc51f",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot-lf.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot-lf.svg",
+      "size": 32525,
+      "hash": "eb7931cb22d4d8a9898249b585e6695d83dc8cae",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot-lfx.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot-lfx.svg",
+      "size": 32287,
+      "hash": "ac763921d37b46f809eb65c2c4edcf7a3c69a26b",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot-none.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot-none.svg",
+      "size": 314,
+      "hash": "5c07031af3ec250519583e01a87f07a310890772",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot-rf.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot-rf.svg",
+      "size": 33299,
+      "hash": "c7ac830aabefc5426cd1de4c5abed9b0287d0350",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot-rfx.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot-rfx.svg",
+      "size": 33018,
+      "hash": "12a22ce45c7762d8f0b0dc6a210f06721aa81dbc",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot-top.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot-top.svg",
+      "size": 2782,
+      "hash": "a0db0f47ebc4887aa46932bf30166d384d54db2f",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot.bak.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot.bak.svg",
+      "size": 2707,
+      "hash": "83115cea9d2c48eb8bad956521a6b22fc1dc24a6",
+      "sri": null
+    },
+    {
+      "path": "app/images/knot.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/knot.svg",
+      "size": 3355,
+      "hash": "39b747b306987f630f14fccc4b775a19a890468d",
+      "sri": null
+    },
+    {
+      "path": "app/images/logo-knotshot.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/logo-knotshot.svg",
+      "size": 6626,
+      "hash": "6fe1032fe4715909149fe6fe16fcae9043e889b8",
+      "sri": null
+    },
+    {
+      "path": "app/images/tileTop.svg",
+      "where": "client",
+      "type": "asset",
+      "cacheable": false,
+      "url": "/images/tileTop.svg",
+      "size": 957,
+      "hash": "1c1a00daa8407c3ecf950908a482ba0404d77e7e",
+      "sri": null
+    },
+    {
+      "path": "head.html",
+      "where": "internal",
+      "type": "head",
+      "hash": "1c8be92afb01c8b96aa226d86e1aefbf9c1a92a9"
+    },
+    {
+      "path": "body.html",
+      "where": "internal",
+      "type": "body",
+      "hash": "1b433f33b806b0ddfe84c13b41b6b68881ee49ec"
+    }
+  ]
+}
