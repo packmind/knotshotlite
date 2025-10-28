@@ -1,3 +1,27 @@
+# Knotshot Lite
+
+## Setup
+
+1.  Navigate to the `app` directory:
+    ```bash
+    cd app
+    ```
+
+2.  Install the dependencies:
+    ```bash
+    npm install
+    ```
+
+## Running the Application
+
+1.  Start the development server:
+    ```bash
+    npm run dev
+    ```
+
+2.  Open your browser and navigate to the URL provided by the development server (usually `http://localhost:5173`).
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
